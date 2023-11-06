@@ -1,0 +1,31 @@
+EXP_3 block convolution using overlap save method
+
+
+Code : 
+clc;
+clear all;
+close all;
+% xn=[3,-1,0,1,3,2,0,1,2,1];
+% hn=[1,1,1];
+xn=input('enter input xn of len 10');
+hn=input('enter input hn of len 3');
+L=3;
+M=length(hn);
+N= L+M-1 ;
+x1=[zeros(1,M-1),xn(1,1:L)];
+x2=[x1(4:5),xn(L+1:2*L)];
+x3=[x2(4:5),xn(2*L+1:3*L)];
+x4=[x3(4:5),xn(3*L+1),zeros(1,2)]
+%x4=[1,2,1,0,0]
+%x5=[x4(4:5),zeros(1,3)]
+h= [ hn,zeros(1,M-1)];
+hx=[h;circshift(h,[0 1]);circshift(h,[0 2]);circshift(h,[0 3]);circshift(h,[0 4])];
+hx=hx';
+y1=hx*x1';
+y2=hx*x2';
+y3=hx*x3';
+y4=hx*x4'
+%y5=hx*x5'
+y=[y1(3:5);y2(3:5);y3(3:5);y4(3:5)]%;y5(3:5)]
+y=y'
+yn=conv(xn,hn)

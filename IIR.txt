@@ -1,0 +1,32 @@
+
+Exp 7 MATLAB code to realise IIR filters using FDA (Simulink) tools.
+1.Direct form-I, II
+2.Cascade form
+3.Parallel form
+
+clc;
+clear all;
+close all;
+%DF-I Realization.
+n1 = input('Enter values of coefficients of Numerator of TF1 : ');
+d1 = input('Enter values of coefficients of Denominator of TF1 : ');
+fs = 1000;
+tf(n1,d1,fs,'variable','z^-1')
+h1 = dfilt.df1(n1,d1);
+realizemdl(h1)
+h12 = dfilt.df2(n1,d1);
+%DF-II Realization.
+n2 = input('Enter values of coefficients of Numerator of TF2 : ');
+d2 = input('Enter values of coefficients of Denominator of TF2 : ');
+fs = 1000;
+tf(n2,d2,fs,'variable','z^-1')
+h2 = dfilt.df2(n2,d2);
+realizemdl(h2)
+h22 = h2;
+%Cascade Realization.
+hc = dfilt.cascade(h12,h22);
+realizemdl(hc)
+%Parallel Realization.
+hp = dfilt.parallel(h12,h22);
+realizemdl(hp)
+

@@ -1,0 +1,20 @@
+
+EXP_2 linear convolution y(n) of the given input sequence x(n) and impulse response h(n) using DFT and IDFT
+
+Code : 
+clc;
+close all;
+clear all;
+ 
+xn = input('Enter input sequence');%[1,2,3,4]
+hn = input('Enter input sequence');%[1,2,1]
+L = length (xn);
+M = length (hn);
+N = L+M-1;
+xn1 = [xn, zeros(1,N-L)]
+
+hn1 = [hn, zeros(1,N-M)]
+Xk1 = fft(xn1)
+Hk1 = fft(hn1)
+Yk = Xk1.*Hk1
+yn = (ifft(Yk))

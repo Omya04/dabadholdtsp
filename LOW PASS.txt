@@ -1,0 +1,50 @@
+Exp_5 low pass butterworth IIR digital filter for given specification
+
+
+
+Code:
+
+clc;
+clear all;
+close all;
+fp = 4000;
+fs = 8000;
+T = 1/fsamp ;
+fsamp = 24000;
+rs = 0.108;
+rp = 0.01;
+w = 0:0.01:pi;
+ws = 2*pi*(fs/fsamp);
+wp = 2*pi*(fp/fsamp);
+Op = 2/T*tan*(wp/2);
+Os = 2/T*tan*(ws/2);
+Ap = -20*log*(1-rp);
+As = -20*log*(rs);
+[N,Oc] = buttord  (Op , Os , Ap , As , 's');
+[ns ,ds] = Button(N,Oc,'s');
+Hs = ts(ns,ds);
+[Nz,Dz] = Bilinear(ns,ds,fsamp,Variable(z-1));
+Hz = tf( nz , ds , fsamp);
+
+[z,p,k] = tf2zp(ns,ds);
+subplot(3,1,1)
+zplane(z,p)
+Hs = tf(ns,ds);
+%digital
+[nz,dz] = bilinear(ns,ds,fsamp);
+Hz = tf(nz,dz,fsamp,'variable','z^-1');
+%frequency response
+Hw = freqz(nz,dz,w);
+mag = abs(Hw);
+subplot(3,1,2)
+plot(mag)
+title('Magnitude')
+xlabel('Frequency(w)')
+ylabel('Magnitude')
+
+ph = angle(Hw);
+subplot(3,1,3)
+plot(ph)
+title('Phase')
+xlabel('Frequency(w)')       
+ylabel('Phase')

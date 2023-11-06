@@ -1,0 +1,64 @@
+Exp 9 To plot and observe the following for different frequency selective filters:
+▪ Pole Zero plot
+▪ Magnitude Response
+▪ Phase Response
+
+clc
+clear all;
+close all;
+%Digital Resonator.
+r = 0.5;
+w = -pi:0.01:pi;
+h = 1/(1-r)*(1-r*exp(-2j*w));
+hmag = abs(h);
+hpha = angle(h);
+subplot(4,3,1); plot(w,hmag)
+title('Magnitude Plot of Digital Resonator.'); xlabel('Frequeny.'); ylabel('Magnitude.')
+subplot(4,3,2); plot(w,hpha)
+title('Phase Plot of Digital Resonator.'); xlabel('Frequeny.'); ylabel('Phase.')
+a = [1,0];
+b = [0.5,0,-0.25];
+[z,p,k] = tf2zp(a,b);
+subplot(4,3,3); zplane(z,p)
+title('Pole-Zero Plot of Digital Resonator.')
+%Notch Filter.
+h1 = 1-2*exp(-1j*w)*cos(pi/4)+exp(-2j*w);
+hmag1 = abs(h1);
+hpha1 = angle(h1);
+subplot(4,3,4); plot(w,hmag1)
+title('Magnitude Plot of Notch Filter.'); xlabel('Frequeny.'); ylabel('Magnitude.')
+subplot(4,3,5); plot(w,hpha1)
+title('Phase Plot of Notch Filter.'); xlabel('Frequeny.'); ylabel('Phase.')
+a = [1,-2*cos(pi/4),1];
+b = [1,0,0];
+[z,p,k] = tf2zp(a,b);
+subplot(4,3,6); zplane(z,p)
+title('Pole-Zero Plot of Notch Filter.')
+%Comb Filter.
+m = 6;
+h2 = (1/m+1)*exp(-0.5j*w*m).*(sin(((m+1)/2)*w)./sin(w/2));
+hmag2 = abs(h2);
+hpha2 = angle(h2);
+subplot(4,3,7); plot(w,hmag2)
+title('Magnitude Plot of Comb Filter.'); xlabel('Frequeny.'); ylabel('Magnitude.')
+subplot(4,3,8); plot(w,hpha2)
+title('Phase Plot of Comb Filter.'); xlabel('Frequeny.'); ylabel('Phase.')
+a = [1,0,0,0,0,0,0,-1];
+b = [1,-1,0,0,0,0,0,0];
+[z,p,k] = tf2zp(a,b);
+subplot(4,3,9); zplane(z,p)
+title('Pole-Zero Plot of Comb Filter.')
+%All Pass Filter.
+m1 = 0.8;
+h3 = (exp(-1j*w)-inv(m1))./(exp(-1j*w)-m1);
+hmag3 = abs(h3);
+hpha3 = angle(h3);
+subplot(4,3,10); plot(w,hmag3)
+title('Magnitude Plot of All Pass Filter.'); xlabel('Frequeny.'); ylabel('Magnitude.')
+subplot(4,3,11); plot(w,hpha3)
+title('Phase Plot of All Pass Filter.'); xlabel('Frequeny.'); ylabel('Phase.')
+a = [1,-inv(m1)];
+b = [1,-m1];
+[z,p,k] = tf2zp(a,b);
+subplot(4,3,12); zplane(z,p)
+title('Pole-Zero Plot of All Pass Filter.')

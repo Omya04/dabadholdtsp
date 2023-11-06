@@ -1,0 +1,52 @@
+clc;
+clear all;
+close all;
+Xn = input('enter input sequence');
+N = length(Xn);
+n = 0:N-1;
+subplot(3,2,1);
+stem(n,Xn);
+title('Input Sequence');
+xlabel('n');
+ylabel('Xn');
+d = input('enter delay value');
+nd = 0:N-1+d
+Xd = [zeros(1,d),Xn]
+subplot(3,2,2)
+stem(nd,Xd)
+title('delay value');
+xlabel('nd');
+ylabel('Xd');
+a = input('enter advance value');
+na = -a:N-1
+Xa = [Xn,zeros(1,a)]
+subplot(3,2,3)
+stem(na,Xa)
+title('advance value');
+xlabel('na');
+ylabel('Xa');
+s = input('enter scaling value');
+Xs = [s*Xn]
+subplot(3,2,4)
+stem(Xs)
+title('scaling value');
+xlabel('Xs');
+ylabel('Xn');
+c = input('enter compression value');
+nc = n*c
+subplot(3,2,5)
+stem(nc,Xn)
+title('compression value');
+xlabel('nc');
+ylabel('Xn');
+e = input('enter expansion value');
+ne = n/e
+subplot(3,2,6)
+stem(ne,Xn)
+title(' expansion value');
+xlabel('ne');
+ylabel('Xn');
+
+OUTPUT
+
+

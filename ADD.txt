@@ -1,0 +1,26 @@
+Exp_4 linear convolution of long data sequence using overlap add method
+
+
+
+Code:
+clc;
+clear all;
+close all;
+xn=[3,-1,0,1,3,2,0,1,2,1]
+hn=[1,1,1]
+M=length(hn)
+L=3
+x1=[xn(1:L),zeros(1:M-1)]
+x2=[xn(L+1:2*L),zeros(1:M-1)]
+x3=[xn(2*L+1:3*L),zeros(1:M-1)]
+x4=[xn(3*L+1),zeros(1,4)]
+h1=[hn,zeros(1,M-1)]
+hm=[h1;circshift(h1,[0 1]);circshift(h1,[0 2]);circshift(h1,[0 3]);
+    circshift(h1,[0 4])]
+ht=hm'
+y1=ht*x1'
+y2=ht*x2'
+y3=ht*x3'
+y4=ht*x4'
+yn=[y1(1:3);y1(4:5)+y2(1:2);y2(3);y2(4:5)+y3(1:2);y3(3);y3(4:5)+y4(1:2);y4(3)]'
+y=conv(xn,hn)

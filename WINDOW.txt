@@ -1,0 +1,90 @@
+clc
+clear all;
+close all;
+rp = 0.03;
+rs = 0.01;
+fp = 1400;
+fs = 2000;
+fsamp = 8000;
+wp = 2*(fp/fsamp);
+ws = 2*(fs/fsamp);
+w = 0:0.01:pi;
+nr = 20*log(sqrt(rp*rs))-13;
+dr = 14.6*((fp-fs)/fsamp);
+n = nr/dr;
+n = ceil(n)
+N = n+1;
+%Hamming Window.
+y1 = hamming(N);
+subplot(6,3,1); plot(y1)
+title('Hamming Window.'); xlabel('N'); ylabel('Magnitude')
+h = fir1(n,wp,y1);
+H1 = freqz(h);
+M1 = abs(H1);
+subplot(6,3,2); plot(M1)
+title('Magnitude Plot of Hamming Window.'); xlabel('Frequency'); ylabel('Magnitude')
+P1 = angle(H1);
+subplot(6,3,3); plot(P1)
+title('Phase Plot of Hamming Window.'); xlabel('Frequency'); ylabel('Phase ')
+%Rectwin Window.
+y1 = rectwin(N);
+subplot(6,3,4); plot(y1)
+title('Rectwin Window.'); xlabel('N'); ylabel('Magnitude')
+h = fir1(n,wp,y1);
+H1 = freqz(h);
+M1 = abs(H1);
+subplot(6,3,5); plot(M1)
+title('Magnitude Plot of Rectwin Window.'); xlabel('Frequency'); ylabel('Magnitude')
+P1 = angle(H1);
+subplot(6,3,6); plot(P1)
+title('Phase Plot of Rectwin Window.'); xlabel('Frequency'); ylabel('Phase ')
+%Hanning Window.
+y1 = hanning(N);
+subplot(6,3,7); plot(y1)
+title('Hanning Window.'); xlabel('N'); ylabel('Magnitude')
+h = fir1(n,wp,y1);
+H1 = freqz(h);
+M1 = abs(H1);
+subplot(6,3,8); plot(M1)
+title('Magnitude Plot of Hanning Window.'); xlabel('Frequency'); ylabel('Magnitude')
+P1 = angle(H1);
+subplot(6,3,9); plot(P1)
+title('Phase Plot of Hanning Window.'); xlabel('Frequency'); ylabel('Phase ')
+%Blackman Window.
+y1 = blackman(N);
+subplot(6,3,10); plot(y1)
+title('Blackman Window.'); xlabel('N'); ylabel('Magnitude')
+h = fir1(n,wp,y1);
+H1 = freqz(h);
+M1 = abs(H1);
+subplot(6,3,11); plot(M1)
+title('Magnitude Plot of Blackman Window.'); xlabel('Frequency'); ylabel('Magnitude')
+P1 = angle(H1);
+subplot(6,3,12); plot(P1)
+title('Phase Plot of Blackman Window.'); xlabel('Frequency'); ylabel('Phase ')
+%Kaiser Window.
+y1 = kaiser(N);
+subplot(6,3,13); plot(y1)
+title('Kaiser Window.'); xlabel('N'); ylabel('Magnitude')
+h = fir1(n,wp,y1);
+H1 = freqz(h);
+M1 = abs(H1);
+subplot(6,3,14); plot(M1)
+title('Magnitude Plot of Kaiser Window.'); xlabel('Frequency'); ylabel('Magnitude')
+P1 = angle(H1);
+subplot(6,3,15); plot(P1)
+title('Phase Plot of Kaiser Window.'); xlabel('Frequency'); ylabel('Phase ')
+%Bartlett Window.
+y1 = bartlett(N);
+subplot(6,3,16); plot(y1)
+title('Bartlett Window.'); xlabel('N'); ylabel('Magnitude')
+h = fir1(n,wp,y1);
+H1 = freqz(h);
+M1 = abs(H1);
+subplot(6,3,17); plot(M1)
+title('Magnitude Plot of Bartlett Window.'); xlabel('Frequency'); ylabel('Magnitude')
+P1 = angle(H1);
+subplot(6,3,18); plot(P1)
+title('Phase Plot of Bartlett Window.'); xlabel('Frequency'); ylabel('Phase ')
+
+Output
